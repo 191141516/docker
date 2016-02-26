@@ -1,0 +1,25 @@
+web1:
+    image: debian/nginx-php:0.1
+    volumes:
+        - /var/www/html:/var/www/html
+        - $PWD/nginx-php-sites-available:/etc/nginx/sites-enabled
+web2:
+    image: debian/nginx-php:0.1
+    volumes:
+        - /var/www/html:/var/www/html
+        - $PWD/docker-compose/nginx-php-sites-available:/etc/nginx/sites-enabled
+web3:
+    image: debian/nginx-php:0.1
+    volumes:
+        - /var/www/html:/var/www/html
+        - $PWD/nginx-php-sites-available:/etc/nginx/sites-enabled
+nginx:
+    image: debian/nginx:0.1
+    ports:
+        - "80:80"
+    links:
+        - web1:web1
+        - web2:web2
+        - web3:web3
+    volumes:
+        - $PWD/nginx-sites-available:/etc/nginx/sites-enabled

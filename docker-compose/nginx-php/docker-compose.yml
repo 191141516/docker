@@ -1,0 +1,26 @@
+web1:
+    image: debian/php:0.1
+    volumes:
+        - /var/www/html:/var/www/html
+        - $PWD/php-conf/www.conf:/etc/php5/fpm/pool.d/www.conf
+web2:
+    image: debian/php:0.1
+    volumes:
+        - /var/www/html:/var/www/html
+        - $PWD/php-conf/www.conf:/etc/php5/fpm/pool.d/www.conf
+web3:
+    image: debian/php:0.1
+    volumes:
+        - /var/www/html:/var/www/html
+        - $PWD/php-conf/www.conf:/etc/php5/fpm/pool.d/www.conf
+nginx:
+    image: debian/nginx:0.1
+    ports:
+        - "80:80"
+    links:
+        - web1:web1
+        - web2:web2
+        - web3:web3
+    volumes:                                                                      
+        - /var/www/html:/var/www/html
+        - $PWD/nginx-sites-available:/etc/nginx/sites-enabled
